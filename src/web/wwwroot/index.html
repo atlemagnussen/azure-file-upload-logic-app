@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Test upload file</title>
+</head>
+<body>
+    <h1>Upload</h1>
+    <form action="/api/upload" enctype="multipart/form-data" id="uploader-form">
+        <dl>
+            <dt>
+                <label for="uploadFile">File</label>
+            </dt>
+            <dd>
+                <input id="uploadFile" type="file" name="uploadFile" />
+            </dd>
+        </dl>
+
+        <button id="btn-uploader">Upload</button>
+
+        <div style="margin-top:15px">
+            <output name="result"></output>
+        </div>
+    </form>
+
+    <script type="module">
+        import uploader from './js/uploader.js';
+        uploader.init();
+    </script>
+</body>
+</html>

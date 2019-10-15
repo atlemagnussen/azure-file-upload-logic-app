@@ -1,0 +1,71 @@
+{
+    "$connections": {
+        "value": {
+            "sftpwithssh": {
+                "connectionId": "/subscriptions/79417a1d-9f21-41f1-92b4-975845881036/resourceGroups/SupplierPortal/providers/Microsoft.Web/connections/sftpwithssh",
+                "connectionName": "sftpwithssh",
+                "id": "/subscriptions/79417a1d-9f21-41f1-92b4-975845881036/providers/Microsoft.Web/locations/northeurope/managedApis/sftpwithssh"
+            }
+        }
+    },
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "HTTP": {
+                "inputs": {
+                    "body": {
+                        "$content-type": "multipart/form-data",
+                        "$multipart": [
+                            {
+                                "body": "@{triggerBody()}",
+                                "headers": {
+                                    "Content-Disposition": "form-data; name=uploadFile; filename=@{base64ToString(triggerOutputs()['headers']['x-ms-file-name-encoded'])}",
+                                    "Content-Type": "@{triggerOutputs()['headers']['Content-Type']}"
+                                }
+                            }
+                        ]
+                    },
+                    "method": "POST",
+                    "uri": "https://web20191014105330.azurewebsites.net/api/upload"
+                },
+                "runAfter": {},
+                "type": "Http"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "When_a_file_is_added_or_modified": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['sftpwithssh']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/datasets/default/triggers/onupdatedfile",
+                    "queries": {
+                        "folderId": "L3Rlc3Q=",
+                        "includeFileContent": true,
+                        "inferContentType": true,
+                        "queryParametersSingleEncoded": true
+                    }
+                },
+                "metadata": {
+                    "L3Rlc3Q=": "/test"
+                },
+                "recurrence": {
+                    "frequency": "Minute",
+                    "interval": 1
+                },
+                "type": "ApiConnection"
+            }
+        }
+    }
+}

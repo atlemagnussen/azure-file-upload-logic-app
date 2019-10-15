@@ -1,0 +1,8 @@
+{
+  "name": "testuploadwebapi",
+  "version": "1.0.0",
+  "description": "test upload",
+  "main": "index.js",
+  "author": "atlemagnussen",
+  "license": "ISC"
+}
