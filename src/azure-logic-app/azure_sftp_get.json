@@ -2,9 +2,9 @@
     "$connections": {
         "value": {
             "sftpwithssh": {
-                "connectionId": "/subscriptions/79417a1d-9f21-41f1-92b4-975845881036/resourceGroups/SupplierPortal/providers/Microsoft.Web/connections/sftpwithssh",
+                "connectionId": "***",
                 "connectionName": "sftpwithssh",
-                "id": "/subscriptions/79417a1d-9f21-41f1-92b4-975845881036/providers/Microsoft.Web/locations/northeurope/managedApis/sftpwithssh"
+                "id": "***"
             }
         }
     },
