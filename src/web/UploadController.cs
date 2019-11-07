@@ -58,5 +58,11 @@ namespace TestUploadFileWebApi
                 });
             }
         }
+        [HttpPost, Route("Message")]
+        public async Task<IActionResult> UploadMessageResponse([FromForm] UploadModel model)
+        {
+            _logger.LogInformation("Upload method called");
+            return NotFound();
+        }
     }
 }

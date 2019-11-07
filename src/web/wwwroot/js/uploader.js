@@ -3,9 +3,9 @@
         var oFormElement = document.getElementById("uploader-form");
         var resultElement = oFormElement.elements.namedItem("result");
         const formData = new FormData(oFormElement);
-
+        const endpoint = this.sel.value;
         try {
-            const response = await fetch(oFormElement.action, {
+            const response = await fetch(endpoint, {
                 method: "POST",
                 body: formData
             });
@@ -26,6 +26,7 @@
             e.preventDefault();
             await this.post();
         });
+        this.sel = document.getElementById("endpoint");
     }
 }
 

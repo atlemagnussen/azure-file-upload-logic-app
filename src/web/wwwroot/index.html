@@ -6,6 +6,11 @@
 </head>
 <body>
     <h1>Upload</h1>
+    <label for="endpoint">Endpoint</label>
+    <select id="endpoint">
+        <option value="/api/upload">api/upload</option>
+        <option value="/api/upload/message">api/upload/message</option>
+    </select>
     <form action="/api/upload" enctype="multipart/form-data" id="uploader-form">
         <dl>
             <dt>
