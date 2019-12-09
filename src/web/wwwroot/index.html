@@ -1,36 +1,38 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Test upload file</title>
-</head>
-<body>
-    <h1>Upload</h1>
-    <label for="endpoint">Endpoint</label>
-    <select id="endpoint">
-        <option value="/api/upload">api/upload</option>
-        <option value="/api/upload/message">api/upload/message</option>
-    </select>
-    <form action="/api/upload" enctype="multipart/form-data" id="uploader-form">
-        <dl>
-            <dt>
-                <label for="uploadFile">File</label>
-            </dt>
-            <dd>
-                <input id="uploadFile" type="file" name="uploadFile" />
-            </dd>
-        </dl>
+    <head>
+        <meta charset="utf-8" />
+        <title>Test upload file</title>
+    </head>
+    <body>
+        <h1>Upload</h1>
+        <label for="endpoint">Endpoint</label>
+        <select id="endpoint">
+            <option value="/api/upload">api/upload</option>
+            <option value="/api/upload/message">api/upload/message</option>
+            <option value="http://localhost:44397/api/upload">supplierportal-local/api/upload</option>
+            <option value="http://localhost:44397/api/upload/message">supplierportal-local/api/upload/message</option>
+        </select>
+        <form action="/api/upload" enctype="multipart/form-data" id="uploader-form">
+            <dl>
+                <dt>
+                    <label for="uploadFile">File</label>
+                </dt>
+                <dd>
+                    <input id="uploadFile" type="file" name="uploadFile" />
+                </dd>
+            </dl>
 
-        <button id="btn-uploader">Upload</button>
+            <button id="btn-uploader">Upload</button>
 
-        <div style="margin-top:15px">
-            <output name="result"></output>
-        </div>
-    </form>
+            <div style="margin-top:15px">
+                <output name="result"></output>
+            </div>
+        </form>
 
-    <script type="module">
-        import uploader from './js/uploader.js';
-        uploader.init();
-    </script>
-</body>
+        <script type="module">
+            import uploader from "./js/uploader.js";
+            uploader.init();
+        </script>
+    </body>
 </html>
