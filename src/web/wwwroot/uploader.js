@@ -1,10 +1,11 @@
-﻿class Uploader {
-    async post() {
+﻿var uploader = (function() {
+    let sel;
+    const post = async () => {
         var oFormElement = document.getElementById("uploader-form");
         var resultElement = oFormElement.elements.namedItem("result");
         resultElement.value = "Uploading...";
         const formData = new FormData(oFormElement);
-        const endpoint = this.sel.value;
+        const endpoint = sel.value;
         try {
             const response = await fetch(endpoint, {
                 method: "POST",
@@ -12,26 +13,31 @@
             });
 
             if (response.ok) {
-                // window.location.href = "/";
+                console.log("all good");
             }
 
-            resultElement.value = "Result: " + response.status + " " + response.statusText;
+            const res = await response.text();
+            console.log(res);
+            resultElement.value = "Result: " + response.status + " " + response.statusText + " - " + res;
         } catch (error) {
             console.error(error);
             resultElement.value = "Error...";
             var errmsg = "Error..." + error.message;
             resultElement.value = errmsg;
         }
-    }
-    init() {
+    };
+    const init = () => {
         console.log("init");
         var btn = document.getElementById("btn-uploader");
         btn.addEventListener("click", async e => {
             e.preventDefault();
-            await this.post();
+            await post();
         });
-        this.sel = document.getElementById("endpoint");
-    }
-}
-
-export default new Uploader();
+        sel = document.getElementById("endpoint");
+        sel.value = "http://localhost:44397/api/upload"; // default
+    };
+    return {
+        post,
+        init,
+    };
+})();

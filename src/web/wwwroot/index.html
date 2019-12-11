@@ -3,16 +3,22 @@
     <head>
         <meta charset="utf-8" />
         <title>Test upload file</title>
+        <style>
+            input {
+                width: 300px;
+            }
+        </style>
     </head>
     <body>
         <h1>Upload</h1>
         <label for="endpoint">Endpoint</label>
-        <select id="endpoint">
-            <option value="/api/upload">api/upload</option>
-            <option value="/api/upload/message">api/upload/message</option>
-            <option value="http://localhost:44397/api/upload">supplierportal-local/api/upload</option>
-            <option value="http://localhost:44397/api/upload/message">supplierportal-local/api/upload/message</option>
-        </select>
+        <input type="text" list="endpointsList" id="endpoint" />
+        <datalist id="endpointsList">
+            <option>/api/upload</option>
+            <option>/api/upload/message</option>
+            <option>http://localhost:44397/api/upload</option>
+            <option>http://localhost:44397/api/upload/message</option>
+        </datalist>
         <form action="/api/upload" enctype="multipart/form-data" id="uploader-form">
             <dl>
                 <dt>
@@ -30,9 +36,11 @@
             </div>
         </form>
 
-        <script type="module">
-            import uploader from "./js/uploader.js";
-            uploader.init();
+        <script src="uploader.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                uploader.init();
+            });
         </script>
     </body>
 </html>
