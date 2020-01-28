@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Threading.Tasks;
+using TestUploadFileWebApi.services;
 
 namespace TestUploadFileWebApi
 {
@@ -59,7 +60,7 @@ namespace TestUploadFileWebApi
             }
         }
         [HttpPost, Route("Message")]
-        public async Task<IActionResult> UploadMessageResponse([FromForm] UploadModel model)
+        public IActionResult UploadMessageResponse([FromForm] UploadModel model)
         {
             _logger.LogInformation("Upload method called");
             return NotFound();

@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TestUploadFileWebApi.authstuff;
+using TestUploadFileWebApi.services;
 
 namespace TestUploadFileWebApi
 {
@@ -33,7 +30,23 @@ namespace TestUploadFileWebApi
                 logging.AddConsole();
                 logging.AddDebug();
             });
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = ApiKeyAuthenticationOptions.DefaultScheme;
+                    options.DefaultChallengeScheme = ApiKeyAuthenticationOptions.DefaultScheme;
+                })
+            .AddApiKeySupport(options => { });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.OnlyEmployees, policy => policy.Requirements.Add(new OnlyEmployeesRequirement()));
+                options.AddPolicy(Policies.OnlyManagers, policy => policy.Requirements.Add(new OnlyManagersRequirement()));
+                options.AddPolicy(Policies.OnlyThirdParties, policy => policy.Requirements.Add(new OnlyThirdPartiesRequirement()));
+            });
+
             services.AddTransient<FileService>();
+            services.AddTransient<IGetApiKeyQuery, InMemoryGetApiKeyQuery>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +66,12 @@ namespace TestUploadFileWebApi
             app.UseStaticFiles();
 
             app.UseRouting();
-            
-            app.UseEndpoints(endpoints => {
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }

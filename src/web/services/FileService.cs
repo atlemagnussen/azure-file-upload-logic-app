@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using TestUploadFileWebApi.Models.Peppol;
 
-namespace TestUploadFileWebApi
+namespace TestUploadFileWebApi.services
 {
     public class FileService
     {

@@ -36,10 +36,21 @@
             </div>
         </form>
 
+        <h1>Call authentication test method X-Api-Key</h1>
+        <p>
+            <label for="inputApiKey">Api Key:</label>
+            <input id="inputApiKey" value="try_first_with_this_invalid_key" /><br />
+            <button id="btnNoAuth">Call no auth method</button>
+            <button id="btnAuth">Call auth method</button>
+            <button id="btnAuthEmployee">Call auth only employee</button>
+            <output id="output-field"></output>
+        </p>
         <script src="uploader.js"></script>
+        <script src="auther.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function(event) {
                 uploader.init();
+                auther.init();
             });
         </script>
     </body>
